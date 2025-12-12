@@ -41,7 +41,7 @@
 
   <h1 style="color: #6a4104;">📖 القرآن الكريم</h1>
 
-  <!-- اختيار السورة -->
+  
   <select id="surahSelect" onchange="onSurahChange()">
     <option value="">اختر السورة</option>
   </select>
@@ -54,7 +54,7 @@
     const API_LIST = "https://api.alquran.cloud/v1/surah";
     const API_SURAH_DATA = id => `https://api.alquran.cloud/v1/surah/${id}`;
 
-    // تحميل أسماء السور
+    
     fetch(API_LIST)
       .then(res => res.json())
       .then(data => {
@@ -67,7 +67,7 @@
         });
       });
 
-    // عند اختيار سورة
+    
     function onSurahChange() {
       const id = document.getElementById("surahSelect").value;
       if (id) {
@@ -75,13 +75,13 @@
       }
     }
 
-    // تحميل السورة
+    
     function loadSurah(id) {
-      // تغيير الـ iframe لعرض السورة من Tanzil
+      
       document.getElementById("quranIframe").src =
         `https://tanzil.net/?embed=true#${id}:1`;
 
-      // جلب بيانات السورة (اسمها – عدد آياتها)
+      
       fetch(API_SURAH_DATA(id))
         .then(res => res.json())
         .then(data => {
@@ -95,4 +95,5 @@
   </script>
 
 </body>
+
 </html>
