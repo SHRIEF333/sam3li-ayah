@@ -37,7 +37,7 @@
   }
 
 
-  /* صفحة الآيات */
+
   #ayahPage { display: none; }
 
   .ayah-card {
@@ -107,12 +107,10 @@
   <div class="listen" style="text-align: center;"><h2><a href="https://cdn.botpress.cloud/webchat/v3.5/shareable.html?configUrl=https://files.bpcontent.cloud/2025/12/12/00/20251212003558-49RBHB19.json">Islamic bot AI</a></h2></div>
   <br>
 
-  <!-- صفحة السور -->
   <div id="surahPage">
     <div id="surahList"></div>
   </div>
 
-  <!-- صفحة الآيات -->
 
   <div id="ayahPage">
 
@@ -127,7 +125,7 @@
 </div>
 
 <script>
-// API
+
 const API_SURAHS = "https://api.alquran.cloud/v1/surah";
 const API_SURAH_DATA = id => `https://api.alquran.cloud/v1/surah/${id}`;
 
@@ -138,7 +136,7 @@ const ayahPage = document.getElementById("ayahPage");
 const ayahContainer = document.getElementById("ayahContainer");
 const surahTitle = document.getElementById("surahTitle");
 
-// تحميل قائمة السور
+
 fetch(API_SURAHS)
   .then(res => res.json())
   .then(data => {
@@ -151,17 +149,16 @@ fetch(API_SURAHS)
     });
   });
 
-// تحميل صفحة السورة
+
 function loadSurah(id, name) {
   fetch(API_SURAH_DATA(id))
     .then(res => res.json())
     .then(data => {
 
-      // عرض صفحة الآيات فقط
       surahPage.style.display = "none";
       ayahPage.style.display = "block";
 
-      // تحديث العنوان
+      
       surahTitle.textContent = name;
       ayahContainer.innerHTML = "";
 
@@ -205,7 +202,7 @@ function loadSurah(id, name) {
     });
 }
 
-// زر الرجوع
+
 function backToSurahs() {
   ayahPage.style.display = "none";
   surahPage.style.display = "block";
@@ -214,3 +211,4 @@ function backToSurahs() {
 
 </body>
 </html>
+
