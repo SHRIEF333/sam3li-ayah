@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>سمعلي آية</title>
+
+<style>
+  body {
+    font-family: 'Amiri', serif;
+    background: url(flat-arabic-pattern-background_79603-1826.avif);
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .container {
+    border: 3px solid #b5a76f;
+    box-shadow: 0 0 10px rgba(0,0,0,);
+    padding: 20px;
+    width: 100%;
+    max-width: 650px;
+    border-radius: 20px;
+    }
+
+  .surah-item {
+    padding: 14px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    margin-bottom: 6px;
+    cursor: pointer;
+    text-align: center;
+    background: #d7d098;
+    font-size: 20px;
+    color: #6a4104;
+  }
+
+
+  /* صفحة الآيات */
+  #ayahPage { display: none; }
+
+  .ayah-card {
+    background: #d7d098;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    margin-bottom: 15px;
+  }
+
+  .ayah-text {
+    font-size: 22px;
+    line-height: 1.8;
+    margin-top: 10px;
+    display: none;
+  }
+
+  .show-btn {
+    padding: 10px 14px;
+    background: #ab9063;
+    color: #ffffff;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+  }
+
+  .back-btn {
+    background-color: #d7d098;
+    color: #6a4104;
+    padding: 10px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    border: none;
+    margin-bottom: 20px;
+    font-size: larger;
+
+  }
+
+  iframe#quranIframe {
+  width: 100%;
+  height: 420px;
+  border: none;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.listen{
+  background-color: #d7d098;
+  color: #6a4104;
+  border-radius: 40px;
+  margin-left: 20px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  
+  <h1 style="text-align:center; font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; color: #6a4104;"> سمعلي آية </h1>
+  <div class="listen" style="text-align: center;"><h2><a href="https://cdn.botpress.cloud/webchat/v3.5/shareable.html?configUrl=https://files.bpcontent.cloud/2025/12/12/00/20251212003558-49RBHB19.json">Islamic bot AI</a></h2></div>
+  <br>
+
+  <!-- صفحة السور -->
+  <div id="surahPage">
+    <div id="surahList"></div>
+  </div>
+
+  <!-- صفحة الآيات -->
+
+  <div id="ayahPage">
+
+    <button class="back-btn" onclick="backToSurahs()">رجوع</button>
+    <br>
+    <h2 id="surahTitle" style="text-align:center; color: #6a4104;"></h2>
+    <div id="ayahContainer"></div>
+    <div class="listen"><h2 style="text-align: center;">للسماع بأصوات الشيوخ - ترجمة - تفسير <a href="verses.html">أضغط هنا</a></h2></div>
+  </div>
+
+
+</div>
+
+<script>
+// API
+const API_SURAHS = "https://api.alquran.cloud/v1/surah";
+const API_SURAH_DATA = id => `https://api.alquran.cloud/v1/surah/${id}`;
+
+const surahPage = document.getElementById("surahPage");
+const surahList = document.getElementById("surahList");
+
+const ayahPage = document.getElementById("ayahPage");
+const ayahContainer = document.getElementById("ayahContainer");
+const surahTitle = document.getElementById("surahTitle");
+
+// تحميل قائمة السور
+fetch(API_SURAHS)
+  .then(res => res.json())
+  .then(data => {
+    data.data.forEach(surah => {
+      const div = document.createElement("div");
+      div.className = "surah-item";
+      div.textContent = `${surah.number} - ${surah.name}`;
+      div.onclick = () => loadSurah(surah.number, surah.name);
+      surahList.appendChild(div);
+    });
+  });
+
+// تحميل صفحة السورة
+function loadSurah(id, name) {
+  fetch(API_SURAH_DATA(id))
+    .then(res => res.json())
+    .then(data => {
+
+      // عرض صفحة الآيات فقط
+      surahPage.style.display = "none";
+      ayahPage.style.display = "block";
+
+      // تحديث العنوان
+      surahTitle.textContent = name;
+      ayahContainer.innerHTML = "";
+
+      const ayahs = data.data.ayahs;
+
+      ayahs.forEach(aya => {
+        const card = document.createElement("div");
+        card.className = "ayah-card";
+
+        const header = document.createElement("div");
+        header.textContent = `آية ${aya.numberInSurah}`;
+        header.style.fontWeight = "bold";
+        header.style.color = "#6a4104";
+        header.style.fontSize = "20px";
+
+        const text = document.createElement("div");
+        text.className = "ayah-text";
+        text.textContent = aya.text;
+        text.style.color = "#6a4104";
+
+        const btn = document.createElement("button");
+        btn.className = "show-btn";
+        btn.textContent = "إظهار الآية";
+
+        btn.onclick = () => {
+          if (text.style.display === "none") {
+            text.style.display = "block";
+            btn.textContent = "إخفاء الآية";
+          } else {
+            text.style.display = "none";
+            btn.textContent = "إظهار الآية";
+          }
+        };
+
+        card.appendChild(header);
+        card.appendChild(text);
+        card.appendChild(btn);
+        ayahContainer.appendChild(card);
+      });
+
+    });
+}
+
+// زر الرجوع
+function backToSurahs() {
+  ayahPage.style.display = "none";
+  surahPage.style.display = "block";
+}
+</script>
+
+</body>
+</html>

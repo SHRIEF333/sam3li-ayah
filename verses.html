@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <title>القرآن الكريم</title>
+
+  <style>
+    body {
+      font-family: "Amiri", serif;
+      background: url(flat-arabic-pattern-background_79603-1826.avif);
+      margin: 0;
+      padding: 20px;
+      text-align: center;
+    }
+
+    iframe {
+      width: 60%;
+      height: 1000px;
+      border: 2px solid #444;
+      border-radius: 10px;
+      margin-top: 20px;
+    }
+
+    select, button {
+      padding: 10px 15px;
+      font-size: 18px;
+      margin: 10px;
+      cursor: pointer;
+    }
+
+    #surahName {
+      margin-top: 20px;
+      font-size: 24px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+
+<body>
+
+  <h1 style="color: #6a4104;">📖 القرآن الكريم</h1>
+
+  <!-- اختيار السورة -->
+  <select id="surahSelect" onchange="onSurahChange()">
+    <option value="">اختر السورة</option>
+  </select>
+
+  <div id="surahName" style="color: #6a4104;"></div>
+
+  <iframe id="quranIframe"></iframe>
+
+  <script>
+    const API_LIST = "https://api.alquran.cloud/v1/surah";
+    const API_SURAH_DATA = id => `https://api.alquran.cloud/v1/surah/${id}`;
+
+    // تحميل أسماء السور
+    fetch(API_LIST)
+      .then(res => res.json())
+      .then(data => {
+        const select = document.getElementById("surahSelect");
+        data.data.forEach(surah => {
+          const option = document.createElement("option");
+          option.value = surah.number;
+          option.textContent = `${surah.number} - ${surah.englishName} (${surah.name})`;
+          select.appendChild(option);
+        });
+      });
+
+    // عند اختيار سورة
+    function onSurahChange() {
+      const id = document.getElementById("surahSelect").value;
+      if (id) {
+        loadSurah(id);
+      }
+    }
+
+    // تحميل السورة
+    function loadSurah(id) {
+      // تغيير الـ iframe لعرض السورة من Tanzil
+      document.getElementById("quranIframe").src =
+        `https://tanzil.net/?embed=true#${id}:1`;
+
+      // جلب بيانات السورة (اسمها – عدد آياتها)
+      fetch(API_SURAH_DATA(id))
+        .then(res => res.json())
+        .then(data => {
+          document.getElementById("surahName").textContent =
+            `السورة: ${data.data.name} — عدد الآيات: ${data.data.numberOfAyahs}`;
+        })
+        .catch(err => {
+          console.log("Error:", err);
+        });
+    }
+  </script>
+
+</body>
+</html>
