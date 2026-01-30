@@ -16,6 +16,8 @@
       padding: 20px;
       display: flex;
       justify-content: center;
+      transition: all 0.3s ease;
+      color: #6a4104;
     }
 
     .container {
@@ -25,6 +27,7 @@
       width: 100%;
       max-width: 650px;
       border-radius: 20px;
+      transition: all 0.3s ease;
     }
 
     .logo-circle {
@@ -36,6 +39,7 @@
       align-items: center;
       justify-content: center;
       margin: 0 auto 15px;
+      transition: all 0.3s ease;
     }
 
     .logo {
@@ -55,6 +59,7 @@
       background: #d7d098d8;
       font-size: 20px;
       color: #6a4104;
+      transition: all 0.3s ease;
     }
 
     #ayahPage {
@@ -67,6 +72,7 @@
       border-radius: 12px;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
       margin-bottom: 15px;
+      transition: all 0.3s ease;
     }
 
     .ayah-text {
@@ -83,6 +89,7 @@
       border-radius: 8px;
       border: none;
       cursor: pointer;
+      transition: all 0.3s ease;
     }
 
     .back-btn {
@@ -94,6 +101,7 @@
       border: none;
       margin-bottom: 20px;
       font-size: larger;
+      transition: all 0.3s ease;
     }
 
     .listen {
@@ -103,6 +111,7 @@
       margin-left: 20px;
       padding: 5px;
       text-align: center;
+      transition: all 0.3s ease;
     }
 
     .muslim-ai-label {
@@ -118,6 +127,47 @@
       z-index: 9999;
       line-height: 1.4;
       font-family: Arial, sans-serif;
+      transition: all 0.3s ease;
+    }
+
+    /* Dark mode styles */
+    body.dark-mode {
+      background: #1e1e1e url(flat-arabic-pattern-background_79603-1826.avif);
+      color: #5db5d2;
+    }
+
+    body.dark-mode .container {
+      border: 3px solid #6a6a6a;
+      background: #2c2c2c;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+      color: #5db5d2;
+    }
+
+    body.dark-mode .surah-item {
+      background: #3c3c3c;
+      color: #5db5d2;
+      border: 1px solid #555;
+    }
+
+    body.dark-mode .ayah-card {
+      background: #3c3c3c;
+      color: #5db5d2;
+    }
+
+    body.dark-mode .show-btn,
+    body.dark-mode .back-btn,
+    body.dark-mode .listen {
+      background: #555;
+      color: #5db5d2;
+    }
+
+    body.dark-mode .muslim-ai-label {
+      background: #444;
+      color: #5db5d2;
+    }
+
+    body.dark-mode a {
+      color: #5db5d2;
     }
   </style>
 </head>
@@ -126,23 +176,27 @@
 
   <div class="container">
 
+    <div style="text-align:center; margin-bottom: 15px;">
+      <button id="modeToggle" class="show-btn">تفعيل Dark Mode</button>
+    </div>
+
     <div class="logo-circle">
       <img src="logo.png" alt="Logo" class="logo">
     </div>
 
-      <h1
-      style="text-align:center; font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; color: #6a4104;">
-      سمعلي آية </h1>
-
+    <h1
+      style="text-align:center; font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+      سمعلي آية
+    </h1>
 
     <div class="listen">
       <h2>
         للسماع بأصوات الشيوخ - ترجمة - تفسير
-        <a href="verses.html">اضغط هنا</a>
+        <a href="promo.html">اضغط هنا</a>
       </h2>
     </div>
 
-    <p style="text-align:center; color:#6a4104; font-size:14px; margin:20px 0;">
+    <p style="text-align:center; font-size:14px; margin:20px 0;">
       Made by Shrief Ahmed
     </p>
 
@@ -152,7 +206,7 @@
 
     <div id="ayahPage">
       <button class="back-btn" onclick="backToSurahs()">رجوع</button>
-      <h2 id="surahTitle" style="text-align:center; color:#6a4104;"></h2>
+      <h2 id="surahTitle" style="text-align:center;"></h2>
       <h3 id="progressText" class="listen"></h3>
       <div id="ayahContainer"></div>
     </div>
@@ -214,12 +268,10 @@
             const header = document.createElement("div");
             header.textContent = `آية ${aya.numberInSurah}`;
             header.style.fontWeight = "bold";
-            header.style.color = "#6a4104";
 
             const text = document.createElement("div");
             text.className = "ayah-text";
             text.textContent = aya.text;
-            text.style.color = "#6a4104";
 
             const btn = document.createElement("button");
             btn.className = "show-btn";
@@ -253,6 +305,20 @@
       const label = document.querySelector(".muslim-ai-label");
       if (label) label.style.display = "none";
     }, 5000);
+
+    const modeToggle = document.getElementById("modeToggle");
+
+    if (localStorage.getItem("mode") === "dark") {
+      document.body.classList.add("dark-mode");
+      modeToggle.textContent = "تفعيل Light Mode";
+    }
+
+    modeToggle.onclick = () => {
+      document.body.classList.toggle("dark-mode");
+      const isDark = document.body.classList.contains("dark-mode");
+      modeToggle.textContent = isDark ? "تفعيل Light Mode" : "تفعيل Dark Mode";
+      localStorage.setItem("mode", isDark ? "dark" : "light");
+    };
   </script>
 
 </body>
