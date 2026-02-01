@@ -238,17 +238,25 @@
     }
   </style>
 </head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7QGQYLD15H"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7QGQYLD15H');
+  
+</script>
 <body>
   <div class="background">
 
-    <!-- Coins -->
     <div class="coin coin1"></div>
     <div class="coin coin2"></div>
     <div class="coin coin3"></div>
     <div class="coin coin4"></div>
     <div class="coin coin5"></div>
 
-    <!-- Characters -->
     <div class="character char2">✨</div>
     
   </div>
@@ -270,7 +278,8 @@
   </div>
 
   <script>
-    // Add some interactivity
+
+    
     document.querySelector('.cta-button').addEventListener('click', function() {
       this.style.transform = 'scale(0.95)';
       setTimeout(() => {
@@ -278,7 +287,7 @@
       }, 100);
     });
 
-    // Random floating objects
+    
     const coins = document.querySelectorAll('.coin');
     coins.forEach(coin => {
       const randomDelay = Math.random() * 5;
@@ -287,3 +296,4 @@
   </script>
 </body>
 </html>
+
