@@ -114,6 +114,17 @@
       transition: all 0.3s ease;
     }
 
+    .page-description {
+      background: rgba(255, 255, 255, 0.35);
+      border: 1px solid rgba(106, 65, 4, 0.2);
+      border-radius: 12px;
+      padding: 14px 18px;
+      margin: 20px 0;
+      text-align: center;
+      line-height: 1.8;
+      color: #6a4104;
+    }
+
     .muslim-ai-label {
       position: fixed;
       bottom: 95px;
@@ -132,7 +143,13 @@
 
     /* Dark mode styles */
     body.dark-mode {
-      background: #1e1e1e url(flat-arabic-pattern-background_79603-1826.avif);
+      background-color: #101827;
+      background-image:
+        linear-gradient(rgba(9, 18, 35, 0.72), rgba(9, 18, 35, 0.72)),
+        url(flat-arabic-pattern-background_79603-1826.avif);
+      background-blend-mode: normal;
+      background-size: cover;
+      background-attachment: fixed;
       color: #5db5d2;
     }
 
@@ -149,9 +166,19 @@
       border: 1px solid #555;
     }
 
+    body.dark-mode .logo-circle {
+      background-color: #3c3c3c;
+    }
+
     body.dark-mode .ayah-card {
       background: #3c3c3c;
       color: #5db5d2;
+    }
+
+    body.dark-mode .page-description {
+      background: rgba(60, 60, 60, 0.85);
+      border-color: #555;
+      color: #d7eef5;
     }
 
     body.dark-mode .show-btn,
@@ -169,19 +196,11 @@
     body.dark-mode a {
       color: #5db5d2;
     }
+
   </style>
 </head>
 
 <body>
-  
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-7QGQYLD15H"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-7QGQYLD15H');
-</script>
 
   <div class="container">
 
@@ -205,6 +224,13 @@
       </h2>
     </div>
 
+    <div class="page-description">
+      <strong>عن هذه الصفحة</strong><br>
+      تعرض الصفحة سور القرآن الكريم كاملة، وتساعدك على تسميع الآيات؛ قل الآية ثم اضغط على زر
+      <strong>«إظهار الآية»</strong> للتأكد من حفظك بنفسك. كما تحفظ الصفحة آخر موضع توقفت عنده،
+      لتتمكن من المتابعة بسهولة في المرة القادمة.
+    </div>
+
     <p style="text-align:center; font-size:14px; margin:20px 0;">
       Made by Shrief Ahmed
     </p>
@@ -222,20 +248,11 @@
 
   </div>
 
-  <script src="https://cdn.botpress.cloud/webchat/v3.5/inject.js"></script>
-  <script src="https://files.bpcontent.cloud/2025/12/12/00/20251212003558-UBI61X2G.js" defer></script>
-  <script>
-  
-  document.addEventListener('contextmenu', e => e.preventDefault());
 
-  document.onkeydown = function(e) {
-    if (e.keyCode == 123 || 
-       (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) || 
-       (e.ctrlKey && e.keyCode == 85)) {
-      return false;
-    }
-  };
-</script>
+
+  <script src="https://cdn.botpress.cloud/webchat/v3.7/inject.js"></script>
+  <script src="https://files.bpcontent.cloud/2025/12/12/00/20251212003558-UBI61X2G.js" defer></script>
+
 
   <div class="muslim-ai-label">
     Muslim AI<br>
@@ -333,7 +350,6 @@
       document.body.classList.add("dark-mode");
       modeToggle.textContent = "تفعيل Light Mode";
     }
-
     modeToggle.onclick = () => {
       document.body.classList.toggle("dark-mode");
       const isDark = document.body.classList.contains("dark-mode");
@@ -343,5 +359,5 @@
   </script>
 
 </body>
-</html>
 
+</html>
