@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="ar">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title> سمعلي آية</title>
+  <title>عرض خاص - سمعلي آية</title>
   <link rel="icon" type="image/png" href="logo.png">
   <style>
     * {
@@ -15,13 +14,22 @@
 
     body {
       font-family: 'Amiri', serif;
-      background-color: #452e0d;
+      background-color: #0a192f;
       min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
       overflow: hidden;
       position: relative;
+    }
+
+    #starfield {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
     }
 
     .background {
@@ -35,15 +43,8 @@
 
 
     @keyframes float {
-
-      0%,
-      100% {
-        transform: translateX(0px);
-      }
-
-      50% {
-        transform: translateX(50px);
-      }
+      0%, 100% { transform: translateX(0px); }
+      50% { transform: translateX(50px); }
     }
 
     .coin {
@@ -67,46 +68,15 @@
       font-size: 24px;
     }
 
-    .coin1 {
-      top: 15%;
-      left: 10%;
-      animation-delay: 0s;
-    }
-
-    .coin2 {
-      top: 20%;
-      right: 8%;
-      animation-delay: 1s;
-    }
-
-    .coin3 {
-      top: 50%;
-      left: 5%;
-      animation-delay: 2s;
-    }
-
-    .coin4 {
-      top: 60%;
-      right: 12%;
-      animation-delay: 1.5s;
-    }
-
-    .coin5 {
-      top: 80%;
-      left: 20%;
-      animation-delay: 2.5s;
-    }
+    .coin1 { top: 15%; left: 10%; animation-delay: 0s; }
+    .coin2 { top: 20%; right: 8%; animation-delay: 1s; }
+    .coin3 { top: 50%; left: 5%; animation-delay: 2s; }
+    .coin4 { top: 60%; right: 12%; animation-delay: 1.5s; }
+    .coin5 { top: 80%; left: 20%; animation-delay: 2.5s; }
 
     @keyframes float-coin {
-
-      0%,
-      100% {
-        transform: translateY(0px) rotate(0deg);
-      }
-
-      50% {
-        transform: translateY(-30px) rotate(180deg);
-      }
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-30px) rotate(180deg); }
     }
 
     .character {
@@ -123,15 +93,8 @@
     }
 
     @keyframes rotate-character {
-
-      0%,
-      100% {
-        transform: translateY(0px) rotate(-5deg);
-      }
-
-      50% {
-        transform: translateY(-20px) rotate(5deg);
-      }
+      0%, 100% { transform: translateY(0px) rotate(-5deg); }
+      50% { transform: translateY(-20px) rotate(5deg); }
     }
 
     .container {
@@ -144,40 +107,30 @@
     }
 
     @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    .badge {
+    .badge,
+    .cta-button {
       display: inline-block;
       background: rgba(255, 255, 255, 0.3);
       color: white;
       padding: 10px 25px;
       border-radius: 25px;
-      margin-bottom: 20px;
-      font-size: 0.95em;
       backdrop-filter: blur(10px);
       box-shadow: 0 0 10px rgb(255, 255, 255);
+    }
+
+    .badge {
+      margin-bottom: 20px;
+      font-size: 0.95em;
       animation: slideDown 0.8s ease-out;
     }
 
     @keyframes slideDown {
-      from {
-        opacity: 0;
-        transform: translateY(-20px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     h1 {
@@ -189,15 +142,8 @@
     }
 
     @keyframes zoomIn {
-      from {
-        opacity: 0;
-        transform: scale(0.8);
-      }
-
-      to {
-        opacity: 1;
-        transform: scale(1);
-      }
+      from { opacity: 0; transform: scale(0.8); }
+      to { opacity: 1; transform: scale(1); }
     }
 
     .subtitle {
@@ -208,15 +154,8 @@
     }
 
     @keyframes slideUp {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .description {
@@ -228,17 +167,12 @@
     }
 
     .cta-button {
-      display: inline-block;
-      background: linear-gradient(135deg, #b44aff, #8249ab);
-      color: #ffffff;
-      padding: 15px 50px;
-      border-radius: 50px;
       text-decoration: none;
       font-weight: bold;
       font-size: 1.1em;
       margin-top: 20px;
       transition: all 0.3s;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 0 4px rgba(255, 255, 255, 0.65);
       cursor: pointer;
       border: none;
       animation: slideUp 1s ease-out 1.2s both;
@@ -251,6 +185,10 @@
 
     .cta-button:active {
       transform: translateY(-2px) scale(0.98);
+    }
+
+    .cta-button + .cta-button {
+      margin-right: 10px;
     }
 
     .back-link {
@@ -283,40 +221,14 @@
       animation: twinkle 3s infinite;
     }
 
-    .star1 {
-      top: 25%;
-      left: 20%;
-      animation-delay: 0s;
-    }
-
-    .star2 {
-      top: 35%;
-      right: 15%;
-      animation-delay: 1s;
-    }
-
-    .star3 {
-      top: 55%;
-      left: 10%;
-      animation-delay: 2s;
-    }
-
-    .star4 {
-      top: 70%;
-      right: 20%;
-      animation-delay: 1.5s;
-    }
+    .star1 { top: 25%; left: 20%; animation-delay: 0s; }
+    .star2 { top: 35%; right: 15%; animation-delay: 1s; }
+    .star3 { top: 55%; left: 10%; animation-delay: 2s; }
+    .star4 { top: 70%; right: 20%; animation-delay: 1.5s; }
 
     @keyframes twinkle {
-
-      0%,
-      100% {
-        opacity: 0.3;
-      }
-
-      50% {
-        opacity: 1;
-      }
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 1; }
     }
 
     @media (max-width: 768px) {
@@ -338,73 +250,115 @@
     }
   </style>
 </head>
-
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-7QGQYLD15H"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag() { dataLayer.push(arguments); }
-  gtag('js', new Date());
-
-  gtag('config', 'G-7QGQYLD15H');
-
-</script>
-
 <body>
+  <canvas id="starfield" aria-hidden="true"></canvas>
+
   <div class="background">
 
+   
     <div class="coin coin1"></div>
     <div class="coin coin2"></div>
     <div class="coin coin3"></div>
     <div class="coin coin4"></div>
     <div class="coin coin5"></div>
 
-    <div class="character char2">✨</div>
-
+    
   </div>
 
   <a href="index.html" class="back-link">← العودة</a>
 
   <div class="container">
     <div class="badge">🌟 عرض خاص</div>
-
+    
     <h1>استمع للقرآن الكريم</h1>
-
+    
     <div class="subtitle">بأصوات الشيوخ المشهورين</div>
-
+    
     <div class="description">
-      تجربة استماع فريدة مع أفضل التلاوات القرآنية والتفسيرات الشاملة لكل آية
+       تجربة استماع فريدة مع أفضل التلاوات القرآنية والتفسيرات الشاملة لكل آية
     </div>
 
     <a href="https://basira.institute/dashboard" class="cta-button">ابدأ الآن</a>
+    <br>
+    <a href="https://basira.institute/tartil" class="cta-button" target="_blank" rel="noopener noreferrer">سمعلي الآن</a>
   </div>
 
   <script>
+    const starfield = document.getElementById('starfield');
+    const starContext = starfield.getContext('2d');
+    const stars = [];
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let lastTime = 0;
 
+    function resizeStarfield() {
+      const pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+      starfield.width = window.innerWidth * pixelRatio;
+      starfield.height = window.innerHeight * pixelRatio;
+      starContext.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+    }
 
-    document.querySelector('.cta-button').addEventListener('click', function () {
+    function createStars() {
+      stars.length = 0;
+      const starCount = Math.min(220, Math.max(90, Math.floor(window.innerWidth * window.innerHeight / 6500)));
+
+      for (let index = 0; index < starCount; index += 1) {
+        stars.push({
+          x: Math.random() * window.innerWidth,
+          y: Math.random() * window.innerHeight,
+          radius: Math.random() * 1.7 + 0.35,
+          opacity: Math.random() * 0.65 + 0.25,
+          twinkle: Math.random() * Math.PI * 2,
+          speed: Math.random() * 0.0007 + 0.00025,
+          drift: Math.random() * 0.018 + 0.006
+        });
+      }
+    }
+
+    function drawStars(time) {
+      const elapsed = time - lastTime;
+      lastTime = time;
+      starContext.clearRect(0, 0, window.innerWidth, window.innerHeight);
+
+      stars.forEach(star => {
+        if (!reducedMotion) {
+          star.y += star.drift * elapsed;
+          star.twinkle += star.speed * elapsed;
+          if (star.y > window.innerHeight + 3) star.y = -3;
+        }
+
+        const glow = reducedMotion ? star.opacity : star.opacity + Math.sin(star.twinkle) * 0.2;
+        starContext.beginPath();
+        starContext.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+        starContext.fillStyle = `rgba(255, 244, 190, ${Math.max(0.1, glow)})`;
+        starContext.shadowBlur = star.radius * 6;
+        starContext.shadowColor = 'rgba(255, 230, 130, 0.9)';
+        starContext.fill();
+      });
+
+      starContext.shadowBlur = 0;
+      if (!reducedMotion) requestAnimationFrame(drawStars);
+    }
+
+    resizeStarfield();
+    createStars();
+    drawStars(0);
+    window.addEventListener('resize', () => {
+      resizeStarfield();
+      createStars();
+    });
+
+    document.querySelector('.cta-button').addEventListener('click', function() {
       this.style.transform = 'scale(0.95)';
       setTimeout(() => {
         this.style.transform = '';
       }, 100);
     });
 
-
     const coins = document.querySelectorAll('.coin');
     coins.forEach(coin => {
       const randomDelay = Math.random() * 5;
       coin.style.animationDelay = randomDelay + 's';
     });
-
-    document.addEventListener('contextmenu', e => e.preventDefault());
-
-    document.onkeydown = function (e) {
-      if (e.keyCode == 123 ||
-        (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) ||
-        (e.ctrlKey && e.keyCode == 85)) {
-        return false;
-      }
-    };
   </script>
 </body>
-
 </html>
